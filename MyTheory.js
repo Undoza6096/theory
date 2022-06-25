@@ -97,6 +97,6 @@ var get2DGraphValue = () => 1;
 
 var getF = (level) => Utils.getStepwisePowerSum(level, 10, 5, 0);
 var getDT = (level) => BigNumber.THREE.pow(level);
-var getF = (level) => Utils.getStepwisePowerSum(level, 5, 9, 1);
+var getG = (level) => Utils.getStepwisePowerSum(level, 5, 9, 1);
 
 init();
