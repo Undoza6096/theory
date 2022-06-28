@@ -57,6 +57,6 @@ var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.30
 var getTau = () => currency.value;
 
 var getA1 = (level) => Utils.getStepwisePowerSum(level, 3, 10, 0);
-var getA2 = (level) => Utils.getStepwisePowerSum(level, 3, 6, 1);
+var getA2 = (level) => Utils.getStepwisePowerSum(level, 5, 6, 1);
 
 init();
