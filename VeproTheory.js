@@ -26,6 +26,14 @@ var init = () => {
         a1.getInfo = (amount) => Utils.getMathTo(getDesc(a1.level), getDesc(a1.level + amount));
     }
     
+    // a2
+    {
+        let getDesc = (level) => "a_2=" + getA2(level).toString(0);
+        a2 = theory.createUpgrade(1, currency, new FirstFreeCost(new ExponentialCost(100, Math.log2(3))));
+        a2.getDescription = (_) => Utils.getMath(getDesc(a2.level));
+        a2.getInfo = (amount) => Utils.getMathTo(getDesc(a2.level), getDesc(a2.level + amount));
+    }
+    
     /////////////////////
     // Permanent Upgrades
     theory.createPublicationUpgrade(0, currency, 1e9);
@@ -41,7 +49,7 @@ var init = () => {
 var tick = (elapsedTime, multiplier) => {
     let dt = BigNumber.from(elapsedTime * multiplier);
     let bonus = theory.publicationMultiplier;
-    currency.value += dt * bonus * getA1(a1.level)
+    currency.value += dt * bonus * getA1(a1.level) * getA2(a2.level)
 }
 
 var getPublicationMultiplier = (tau) => tau.pow(0.309) / BigNumber.from(4);
@@ -49,5 +57,6 @@ var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.30
 var getTau = () => currency.value;
 
 var getA1 = (level) => Utils.getStepwisePowerSum(level, 3, 10, 0);
+var getA2 = (level) => Utils.getStepwisePowerSum(level, 3, 6, 1);
 
 init();
