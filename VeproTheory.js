@@ -61,6 +61,17 @@ var init = () => {
     //// Milestone Upgrades
     theory.setMilestoneCost(new LinearCost(25, 25));
     
+    /////////////////
+    //// Achievements
+    achievement1 = theory.createAchievement(0, "You Played!", "i think alsos hete...", () => true);
+    achievement2 = theory.createAchievement(1, "I should", "I mean Buy a2?", () => a2.level > 0);
+    achievement3 = theory.createAchievement(2, "Five levels", "I mean Buy 5 a2?", () => a2.level > 4);
+    achievement4 = theory.createAchievement(3, "Kilo levels", "I mean Buy 20 a2?", () => a2.level > 19);
+    achievement5 = theory.createAchievement(4, "Kilo High levels", "I mean Buy 70 a2?", () => a2.level > 69);
+    achievement6 = theory.createSecretAchievement(5, "You played in sercet achievements!", "woowowowoowowo", "i think so get know here.", () => true);
+    achievement7 = theory.createSecretAchievement(6, "Q1?", "Qol theory forever haha", "hahaha i ao get qol.", () => q1.level > 0);
+
+    
 }
 
 var tick = (elapsedTime, multiplier) => {
