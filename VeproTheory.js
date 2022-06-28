@@ -34,6 +34,15 @@ var init = () => {
         a2.getInfo = (amount) => Utils.getMathTo(getDesc(a2.level), getDesc(a2.level + amount));
     }
     
+    // a3
+    {
+        let getDesc = (level) => "a_3=4^{" + level + "}";
+        let getInfo = (level) => "c_2=" + getA3(level).toString(0);
+        a3 = theory.createUpgrade(2, currency, new ExponentialCost(900, Math.log2(20)));
+        a3.getDescription = (_) => Utils.getMath(getDesc(a3.level));
+        a3.getInfo = (amount) => Utils.getMathTo(getInfo(a3.level), getInfo(a3.level + amount));
+    }
+    
     /////////////////////
     // Permanent Upgrades
     theory.createPublicationUpgrade(0, currency, 1e9);
@@ -49,13 +58,15 @@ var init = () => {
 var tick = (elapsedTime, multiplier) => {
     let dt = BigNumber.from(elapsedTime * multiplier);
     let bonus = theory.publicationMultiplier;
-    currency.value += dt * bonus * getA1(a1.level) * getA2(a2.level)
+    currency.value += dt * bonus * getA1(a1.level) * getA2(a2.level) * getA3(a3.level)
 }
 
 var getPrimaryEquation = () => {
     let result = "\\dot{\\rho} = a_1";
 
     result += "a_2";
+    
+    result += "a_3";
 
     return result;
 }
@@ -67,5 +78,6 @@ var getTau = () => currency.value;
 
 var getA1 = (level) => Utils.getStepwisePowerSum(level, 3, 10, 0);
 var getA2 = (level) => Utils.getStepwisePowerSum(level, 5, 6, 1);
+var getA3 = (level) => BigNumber.TWO.pow(level);
 
 init();
