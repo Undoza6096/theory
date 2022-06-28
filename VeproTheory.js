@@ -43,6 +43,14 @@ var init = () => {
         a3.getInfo = (amount) => Utils.getMathTo(getInfo(a3.level), getInfo(a3.level + amount));
     }
     
+    // q1
+    {
+        let getDesc = (level) => "q_1=" + getQ1(level).toString(0);
+        q1 = theory.createUpgrade(3, currency, new ExponentialCost(1e11, Math.log2(10)));
+        q1.getDescription = (_) => Utils.getMath(getDesc(q1.level));
+        q1.getInfo = (amount) => Utils.getMathTo(getDesc(q1.level), getDesc(q1.level + amount));
+    }
+    
     /////////////////////
     // Permanent Upgrades
     theory.createPublicationUpgrade(0, currency, 1e9);
@@ -58,7 +66,7 @@ var init = () => {
 var tick = (elapsedTime, multiplier) => {
     let dt = BigNumber.from(elapsedTime * multiplier);
     let bonus = theory.publicationMultiplier;
-    currency.value += dt * bonus * getA1(a1.level) * getA2(a2.level) * getA3(a3.level)
+    currency.value += dt * bonus * getA1(a1.level) * getA2(a2.level) * getA3(a3.level) * getQ1(q1.level)
 }
 
 var getPrimaryEquation = () => {
@@ -67,6 +75,8 @@ var getPrimaryEquation = () => {
     result += "a_2";
     
     result += "a_3";
+    
+    result += "q_1";
 
     return result;
 }
@@ -74,10 +84,11 @@ var getPrimaryEquation = () => {
 
 var getPublicationMultiplier = (tau) => tau.pow(0.309) / BigNumber.from(4);
 var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.309}}{4}";
-var getTau = () => currency.value;
+var getTau = () => currency.value.pow(0.369);
 
 var getA1 = (level) => Utils.getStepwisePowerSum(level, 3, 10, 0);
 var getA2 = (level) => Utils.getStepwisePowerSum(level, 5, 6, 1);
 var getA3 = (level) => BigNumber.from(4).pow(level);
+var getQ1 = (level) => Utils.getStepwisePowerSum(level, 3, 20, 1);
 
 init();
