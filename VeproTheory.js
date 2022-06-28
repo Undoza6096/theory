@@ -25,8 +25,27 @@ var init = () => {
         a1.getDescription = (_) => Utils.getMath(getDesc(a1.level));
         a1.getInfo = (amount) => Utils.getMathTo(getDesc(a1.level), getDesc(a1.level + amount));
     }
+    
+    /////////////////////
+    // Permanent Upgrades
+    theory.createPublicationUpgrade(0, currency, 1e9);
+    theory.createBuyAllUpgrade(1, currency, 1e15);
+    theory.createAutoBuyerUpgrade(2, currency, 1e40);
+    
+    ///////////////////////
+    //// Milestone Upgrades
+    theory.setMilestoneCost(new LinearCost(25, 25));
+    
 }
 
+var tick = (elapsedTime, multiplier) => {
+    let dt = BigNumber.from(elapsedTime * multiplier);
+    let bonus = theory.publicationMultiplier;
+    currency.value += dt * bonus * getA1(a1.level)
+}
+
+var getPublicationMultiplier = (tau) => tau.pow(0.309) / BigNumber.from(4);
+var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.309}}{4}";
 var getTau = () => currency.value;
 
 var getA1 = (level) => Utils.getStepwisePowerSum(level, 3, 10, 0);
