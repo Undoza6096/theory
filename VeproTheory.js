@@ -11,3 +11,9 @@ var authors = "Undoza6096";
 var version = "1.0.0";
 
 var currency;
+
+var init = () => {
+    currency = theory.createCurrency();
+}
+
+init();
