@@ -52,6 +52,15 @@ var tick = (elapsedTime, multiplier) => {
     currency.value += dt * bonus * getA1(a1.level) * getA2(a2.level)
 }
 
+var getPrimaryEquation = () => {
+    let result = "\\dot{\\rho} = a_1";
+
+    result += "a_2";
+
+    return result;
+}
+
+
 var getPublicationMultiplier = (tau) => tau.pow(0.309) / BigNumber.from(4);
 var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.309}}{4}";
 var getTau = () => currency.value;
