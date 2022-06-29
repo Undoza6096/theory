@@ -17,3 +17,5 @@ var init = () => {
     
     var getTau = () => currency.value;
 }
+
+init();
