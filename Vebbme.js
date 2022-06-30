@@ -30,9 +30,19 @@ var init = () => {
 
 var getSecondaryEquation = () => {
     let result = "";
-    result += "\\rho=q_1"
+    result += "\\rho = q_1"
     return result;
 }
+
+var tick = (elapsedTime, multiplier) => {
+    let dt = BigNumber.from(elapsedTime * multiplier);
+    let bonus = theory.publicationMultiplier;
+    currency.value += dt * bonus * getQ1(q1.level);
+}
+
+var getPublicationMultiplier = (tau) => tau.pow(0.1) / BigNumber.THREE;
+var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.1}}{3}";
+
 var getQ1 = (level) => BigNumber.from(1.6).pow(level);
 
 
