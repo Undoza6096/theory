@@ -6,7 +6,7 @@ import { Utils } from "../api/Utils";
 
 var id = "vepro";
 var name = "Vepro Theory";
-var description = "Ok is based which veprogames.";
+var description = "Ok is based which veprogames. How?";
 var authors = "Undoza6096";
 var version = "1.0.0";
 
